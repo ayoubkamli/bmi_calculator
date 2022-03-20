@@ -11,6 +11,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController _heightController = TextEditingController();
+  TextEditingController _weightController = TextEditingController();
+  double _bmiResult = 0;
+  String _textResult = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               SizedBox(
                 width: 130,
-                child: TextFormField(
+                child: TextField(
+                  controller: _heightController,
                   style: TextStyle(
                     fontSize: 42,
                     fontWeight: FontWeight.w300,
@@ -54,7 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               SizedBox(
                 width: 130,
-                child: TextFormField(
+                child: TextField(
+                  controller: _weightController,
                   style: TextStyle(
                     fontSize: 42,
                     fontWeight: FontWeight.w300,
@@ -63,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Wight',
+                    hintText: 'Weight',
                     hintStyle: TextStyle(
                       fontSize: 42,
                       fontWeight: FontWeight.w300,
@@ -77,7 +84,22 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 30,
           ),
-          Container(
+          GestureDetector(
+            onTap: () {
+              //
+              double _h = double.parse(_heightController.text);
+              double _w = double.parse(_weightController.text);
+              setState(() {
+                _bmiResult = _w / (_h * _h);
+                if (_bmiResult > 25) {
+                  _textResult = 'You\'re over weight';
+                } else if (_bmiResult >= 18.5) {
+                  _textResult = 'You have normal weight';
+                } else {
+                  _textResult = 'You\'re under weight';
+                }
+              });
+            },
             child: Text(
               'Calculate',
               style: TextStyle(
@@ -91,13 +113,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Container(
             child: Text(
-              '10',
+              _bmiResult.toStringAsFixed(2),
               style: TextStyle(fontSize: 90, color: accentHexColor),
             ),
           ),
-          Container(
+          Visibility(
+            visible: _textResult.isNotEmpty,
             child: Text(
-              'Normal weight',
+              _textResult,
               style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w400,
