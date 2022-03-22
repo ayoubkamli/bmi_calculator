@@ -111,11 +111,9 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 80,
           ),
-          Container(
-            child: Text(
-              _bmiResult.toStringAsFixed(2),
-              style: TextStyle(fontSize: 90, color: accentHexColor),
-            ),
+          Text(
+            _bmiResult.toStringAsFixed(2),
+            style: TextStyle(fontSize: 90, color: accentHexColor),
           ),
           Visibility(
             visible: _textResult.isNotEmpty,
