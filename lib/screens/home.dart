@@ -1,4 +1,5 @@
 import 'package:diary/constants/app_constants.dart';
+import 'package:diary/screens/todo.dart';
 import 'package:diary/widgets/left_bar.dart';
 import 'package:diary/widgets/right_bar.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController _heightController = TextEditingController();
-  final TextEditingController _weightController = TextEditingController();
+  final TextEditingController _heightController =
+      TextEditingController(text: '1.0');
+  final TextEditingController _weightController =
+      TextEditingController(text: '1.0');
   double _bmiResult = 0;
   String _textResult = '';
 
@@ -40,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 width: 130,
                 child: TextField(
+                  autofocus: true,
                   controller: _heightController,
                   style: TextStyle(
                     fontSize: 42,
@@ -53,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     hintStyle: TextStyle(
                       fontSize: 42,
                       fontWeight: FontWeight.w300,
-                      color: Colors.white.withOpacity(.8),
+                      color: Colors.white.withOpacity(.2),
                     ),
                   ),
                 ),
@@ -74,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     hintStyle: TextStyle(
                       fontSize: 42,
                       fontWeight: FontWeight.w300,
-                      color: Colors.white.withOpacity(.8),
+                      color: Colors.white.withOpacity(.2),
                     ),
                   ),
                 ),
@@ -87,18 +91,21 @@ class _HomeScreenState extends State<HomeScreen> {
           GestureDetector(
             onTap: () {
               //
-              double _h = double.parse(_heightController.text);
-              double _w = double.parse(_weightController.text);
-              setState(() {
-                _bmiResult = _w / (_h * _h);
-                if (_bmiResult > 25) {
-                  _textResult = 'You\'re over weight';
-                } else if (_bmiResult >= 18.5) {
-                  _textResult = 'You have normal weight';
-                } else {
-                  _textResult = 'You\'re under weight';
-                }
-              });
+              if (_heightController.text.isNotEmpty ||
+                  _weightController.text.isNotEmpty) {
+                double _h = double.parse(_heightController.text);
+                double _w = double.parse(_weightController.text);
+                setState(() {
+                  _bmiResult = _w / (_h * _h);
+                  if (_bmiResult > 25) {
+                    _textResult = 'You\'re over weight';
+                  } else if (_bmiResult >= 18.5) {
+                    _textResult = 'You have normal weight';
+                  } else {
+                    _textResult = 'You\'re under weight';
+                  }
+                });
+              }
             },
             child: Text(
               'Calculate',
@@ -141,8 +148,19 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 30,
           ),
           const RightBar(barWidth: 40),
-          const SizedBox(
-            height: 40,
+          GestureDetector(
+            onTap: () {
+              //
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TodoScreen()));
+            },
+            child: Text(
+              'Tasks',
+              style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: accentHexColor),
+            ),
           ),
           const RightBar(barWidth: 40),
         ]),
