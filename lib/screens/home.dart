@@ -46,16 +46,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   autofocus: true,
                   controller: _heightController,
                   style: TextStyle(
-                    fontSize: 42,
+                    fontSize: 24,
                     fontWeight: FontWeight.w300,
                     color: accentHexColor,
                   ),
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    border: InputBorder.none,
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
                     hintText: 'Height',
                     hintStyle: TextStyle(
-                      fontSize: 42,
+                      fontSize: 24,
                       fontWeight: FontWeight.w300,
                       color: Colors.white.withOpacity(.2),
                     ),
@@ -67,16 +69,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: TextField(
                   controller: _weightController,
                   style: TextStyle(
-                    fontSize: 42,
+                    fontSize: 24,
                     fontWeight: FontWeight.w300,
                     color: accentHexColor,
                   ),
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    border: InputBorder.none,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                        borderSide: BorderSide(color: accentHexColor)),
                     hintText: 'Weight',
                     hintStyle: TextStyle(
-                      fontSize: 42,
+                      fontSize: 24,
                       fontWeight: FontWeight.w300,
                       color: Colors.white.withOpacity(.2),
                     ),

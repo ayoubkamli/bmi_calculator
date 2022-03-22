@@ -35,19 +35,24 @@ class _TodoScreenState extends State<TodoScreen> {
                 SizedBox(
                   width: widthScreen,
                   child: TextField(
+                    minLines: 3,
+                    maxLines: 3,
+                    autofocus: true,
                     controller: _heightController,
                     style: TextStyle(
-                      fontSize: 42,
+                      fontSize: 24,
                       fontWeight: FontWeight.w300,
                       color: accentHexColor,
                     ),
                     decoration: InputDecoration(
-                      // border: InputBorder.none,
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
                       hintText: 'Add notes',
                       hintStyle: TextStyle(
-                        fontSize: 42,
+                        fontSize: 24,
                         fontWeight: FontWeight.w300,
-                        color: Colors.white.withOpacity(.2),
+                        color: Colors.white.withOpacity(.5),
                       ),
                     ),
                   ),
